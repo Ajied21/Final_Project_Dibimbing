@@ -5,6 +5,7 @@ from airflow.operators.empty import EmptyOperator
 from airflow.utils.dates import days_ago
 from airflow.utils.task_group import TaskGroup
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+from astronomer.providers.dbt.task_group import DbtTaskGroup, DbtRunOperator
 
 # Fungsi DAG utama
 @dag(
@@ -29,7 +30,6 @@ def ELT_Projects():
     start_task = EmptyOperator(task_id="start_task")
 
     with TaskGroup(group_id='Extract') as E:
-        # Gunakan SparkSubmitOperator langsung dalam DAG
         extract_data = SparkSubmitOperator(
             application="/spark-scripts/ELT/extract_data.py",
             conn_id="spark_main",
@@ -39,7 +39,6 @@ def ELT_Projects():
         extract_data
     
     with TaskGroup(group_id='Load') as L:
-        # Gunakan SparkSubmitOperator langsung dalam DAG
         load_data = SparkSubmitOperator(
             application="/spark-scripts/ELT/load_data.py",
             conn_id="spark_main",
@@ -47,10 +46,39 @@ def ELT_Projects():
             jars="/spark-scripts/jars/jars_postgresql-42.2.20.jar",
         )
         load_data
+    
+    with TaskGroup(group_id='Transform') as T:
+        assets = DbtRunOperator(
+            task_id="assets",
+            models="/dags/dbt/models/assets.sql",
+            conn_id="my_dbt_connection",
+        )
+
+        rates = DbtRunOperator(
+            task_id="rates",
+            models="/dags/dbt/models/rates.sql",
+            conn_id="my_dbt_connection",
+        )
+
+        exchanges = DbtRunOperator(
+            task_id="exchanges",
+            models="/dags/dbt/models/exchanges.sql",
+            conn_id="my_dbt_connection",
+        )
+
+        markets = DbtRunOperator(
+            task_id="markets",
+            models="/dags/dbt/models/markets.sql",
+            conn_id="my_dbt_connection",
+        )
+        assets
+        rates
+        exchanges
+        markets
 
     end_task = EmptyOperator(task_id="end_task")
     
     # Definisikan alur eksekusi
-    start_task >> E >> L >> end_task
+    start_task >> E >> L >> T >> end_task
 
 ELT_Projects()
