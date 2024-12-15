@@ -1,0 +1,14 @@
+dbt_bigquery:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      project: "{{ env_var('BIGQUERY_PROJECT') }}"
+      dataset: "{{ env_var('BIGQUERY_DATASET') }}"
+      threads: 1
+      timeout_seconds: 300
+      job_retries: 1
+      keyfile: credentials/keys.json
+      location: US
+      method: service-account
+      priority: interactive

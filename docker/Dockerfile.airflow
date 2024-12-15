@@ -1,0 +1,35 @@
+FROM apache/airflow:2.9.2-python3.10
+
+ENV AIRFLOW_HOME=/opt/airflow
+ENV DBT_VENV_PATH="${AIRFLOW_HOME}/dbt_venv"
+ENV DBT_PROJECT_PATH="${AIRFLOW_HOME}/dags/dbt"
+ENV DBT_SCHEMA="${DBT_SCHEMA}"
+ENV PIP_USER=false
+
+USER root
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk && \
+    apt-get install -y ant && \
+    apt-get install -y procps && \
+    apt-get install -y python3-venv && \
+    apt-get clean
+
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
+RUN export JAVA_HOME
+
+USER airflow
+
+RUN python3 -m venv "${DBT_VENV_PATH}" && \
+    . "${DBT_VENV_PATH}/bin/activate" && \
+    pip install --no-cache-dir dbt-bigquery && \
+    deactivate
+
+RUN mkdir -p "${AIRFLOW_HOME}/.dbt"
+
+COPY ./dags/dbt/profiles.yml "${AIRFLOW_HOME}/.dbt/profiles.yml"
+
+COPY ./docker/requirements_airflow.txt .
+RUN pip install --no-cache-dir -r requirements_airflow.txt
+
+COPY --chown=airflow:root ./dags /opt/airflow/dags
+ENV PIP_USER=true
