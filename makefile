@@ -104,6 +104,13 @@ airflow:
 	@docker compose -f ./docker/docker-compose-airflow.yaml --env-file .env up -d
 	@echo '==========================================================='
 
+grafana:
+	@echo '__________________________________________________________'
+	@echo 'Creating Grafana Instance ...'
+	@echo '__________________________________________________________'
+	@docker compose -f ./docker/docker-compose-grafana.yaml up -d
+	@echo '==========================================================='
+
 dbt:
 	@echo '__________________________________________________________'
 	@echo 'Creating dbt Instance ...'
