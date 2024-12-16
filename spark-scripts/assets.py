@@ -15,7 +15,7 @@ spark_host = "spark://spark-master:7077"
 # Membuat sesi Spark
 spark = SparkSession.builder \
     .appName("Consumer_data_assets") \
-    .master("local") \
+    .master("local[*]") \
     .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.2, \
                                     org.apache.kafka:kafka-clients:7.2.0, \
                                     org.postgresql:postgresql:42.6.0") \
@@ -41,7 +41,7 @@ schema = StructType([
 
 # Fungsi untuk mengonversi tipe data ke tipe yang sesuai dengan PostgreSQL
 def convert_to_postgres_typed_df(df):
-    return df.withColumn("id", col("id").cast("string")) \
+    df = df.withColumn("id", col("id").cast("string")) \
              .withColumn("rank", col("rank").cast("int")) \
              .withColumn("symbol", col("symbol").cast("string")) \
              .withColumn("name", col("name").cast("string")) \
@@ -53,6 +53,8 @@ def convert_to_postgres_typed_df(df):
              .withColumn("changePercent24Hr", col("changePercent24Hr").cast("double")) \
              .withColumn("vwap24Hr", col("vwap24Hr").cast("double")) \
              .withColumn("explorer", col("explorer").cast("string"))
+    
+    return df
 
 # Fungsi untuk memproses stream Kafka dan menyimpannya ke PostgreSQL
 def process_kafka_stream(topic_name):
@@ -93,6 +95,7 @@ def process_kafka_stream(topic_name):
     postgres_df.writeStream \
         .foreachBatch(write_to_postgres) \
         .outputMode("append") \
+        .trigger(processingTime="30 seconds") \
         .start() \
         .awaitTermination()
 

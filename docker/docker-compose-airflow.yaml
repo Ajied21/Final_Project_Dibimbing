@@ -28,7 +28,6 @@ x-airflow-common:
   user: "${AIRFLOW_UID:-50000}:0"
   volumes:
       - ../dags:/opt/airflow/dags
-      - ../airflow.cfg:/opt/airflow/airflow.cfg
       - ../logs:/opt/airflow/logs
       - ../spark-scripts:/spark-scripts
       - ../data:/data

@@ -3,3 +3,7 @@ airflow.cfg/*
 spark-scripts/ELT/credentials/*.json
 dags/dbt/credentials/*.json
 dags/dbt/.env
+dags/__pycache__/*
+dags/dbt/logs/*
+dags/dbt/target/*
+dags/dbt/.user.yml

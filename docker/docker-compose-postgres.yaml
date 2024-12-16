@@ -1,7 +1,7 @@
 services:
 
  postgres:
-  image: postgres:11
+  image: postgres:13
   container_name: ${POSTGRES_CONTAINER_NAME}
   restart: unless-stopped
   hostname: ${POSTGRES_CONTAINER_NAME}

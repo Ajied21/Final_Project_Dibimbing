@@ -72,7 +72,6 @@ def load():
                 m."quoteId",
                 m."priceQuote",
                 m."percentExchangeVolume",
-                m."tradesCount24Hr",
                 TO_CHAR(m.updated, 'YYYY-MM-DD HH24:MI:SS') AS updated
                 FROM
                     public.markets m
@@ -97,12 +96,12 @@ def load():
 
     data.show(5)
 
-    # Konversi Spark DataFrame ke Arrow DataFrame 
+    # Konversi Spark DataFrame ke Pandas DataFrame
     # karena Polars tidak memiliki dukungan bawaan untuk langsung membaca data dari PySpark DataFrame
-    arrow_df = data._sc._jvm.org.apache.spark.sql.execution.arrow.ArrowUtils.toArrowTable(data._jdf)
+    convert_df = data.toPandas()
 
-    # Konversi Arrow DataFrame ke Polars DataFrame
-    df = pl.from_arrow(arrow_df)
+    # Konversi Pandas DataFrame ke Polars DataFrame
+    df = pl.from_pandas(convert_df)
 
     # Simpan Polars DataFrame sebagai file Parquet
     parquet_file = "Coins_Markets_Caps.parquet"

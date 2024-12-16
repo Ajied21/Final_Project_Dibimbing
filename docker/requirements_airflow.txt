@@ -12,3 +12,4 @@ dbt-core==1.6.0
 dbt-postgres==1.6.0
 dbt-spark==1.6.0
 astronomer-cosmos==1.7.0
+astronomer-providers

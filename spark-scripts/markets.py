@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, from_json, from_unixtime
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+from pyspark.sql.functions import col, from_json, to_timestamp, year, from_unixtime
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, TimestampType
 import os
 
 # Menambahkan dependensi untuk koneksi ke Kafka dan PostgreSQL
@@ -15,7 +15,7 @@ spark_host = "spark://spark-master:7077"
 # Membuat sesi Spark
 spark = SparkSession.builder \
     .appName("Consumer_data_assets") \
-    .master("local") \
+    .master("local[*]") \
     .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.2, \
                                     org.apache.kafka:kafka-clients:7.2.0, \
                                     org.postgresql:postgresql:42.6.0") \
@@ -36,12 +36,12 @@ schema = StructType([
     StructField("volumeUsd24Hr", StringType(), True),
     StructField("percentExchangeVolume", StringType(), True),
     StructField("tradesCount24Hr", StringType(), True),
-    StructField("updated", IntegerType(), True)
+    StructField("updated", StringType(), True)
 ])
 
 # Fungsi untuk mengonversi tipe data ke tipe yang sesuai dengan PostgreSQL
 def convert_to_postgres_typed_df(df):
-    return df.withColumn("exchangeId", col("exchangeId").cast("string")) \
+    df = df.withColumn("exchangeId", col("exchangeId").cast("string")) \
             .withColumn("rank", col("rank").cast("int")) \
             .withColumn("baseSymbol", col("baseSymbol").cast("string")) \
             .withColumn("baseId", col("baseId").cast("string")) \
@@ -52,7 +52,11 @@ def convert_to_postgres_typed_df(df):
             .withColumn("volumeUsd24Hr", col("volumeUsd24Hr").cast("double")) \
             .withColumn("percentExchangeVolume", col("percentExchangeVolume").cast("double")) \
             .withColumn("tradesCount24Hr", col("tradesCount24Hr").cast("int")) \
-            .withColumn("updated", from_unixtime((col("updated") / 1000).cast("bigint")).cast("timestamp"))
+            .withColumn("updated", from_unixtime(col("updated") / 1000).cast("timestamp"))
+    
+    df_filtered = df.filter(year(col("updated")) == 2024)
+
+    return df_filtered
 
 # Fungsi untuk memproses stream Kafka dan menyimpannya ke PostgreSQL
 def process_kafka_stream(topic_name):
@@ -82,7 +86,7 @@ def process_kafka_stream(topic_name):
         batch_df.write \
             .format("jdbc") \
             .option("url", "jdbc:postgresql://postgres:5432/data_staging") \
-            .option("dbtable", "assets") \
+            .option("dbtable", "markets") \
             .option("user", "user") \
             .option("password", "admin123") \
             .option("driver", "org.postgresql.Driver") \
@@ -93,6 +97,7 @@ def process_kafka_stream(topic_name):
     postgres_df.writeStream \
         .foreachBatch(write_to_postgres) \
         .outputMode("append") \
+        .trigger(processingTime="30 seconds") \
         .start() \
         .awaitTermination()
 

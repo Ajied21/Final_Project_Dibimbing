@@ -57,7 +57,7 @@ spark_host = "spark://spark-master:7077"
 
 spark = SparkSession.builder \
     .appName("Procedur_data") \
-    .master(spark_host) \
+    .master("local[*]") \
     .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.2") \
     .getOrCreate()
 
@@ -77,6 +77,7 @@ df_parsed = df.selectExpr("CAST(value AS STRING) as message")
 # Misalkan Anda ingin melihat hasilnya, Anda bisa menulisnya ke output
 df_parsed.writeStream \
     .format("console") \
+    .trigger(processingTime="1 minutes") \
     .start()
 
 # Jalankan polling API secara periodik

@@ -1,2 +1,2 @@
-SELECT 'CREATE DATABASE warehouse'
-WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'Data_Staging')\gexec
+SELECT 'CREATE DATABASE data_staging'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'data_staging')\gexec

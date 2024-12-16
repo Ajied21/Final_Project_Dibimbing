@@ -4,7 +4,7 @@
   )
 }}
 
-WITH markets AS (
+WITH fact_markets AS (
 SELECT 
     exchange_id,
     asset_id AS base_id,
@@ -20,7 +20,6 @@ SELECT
     percentExchangeVolume AS percent_exchange_volume,
     percentTotalVolume AS percent_total_volume,
     tradingPairs AS trading_pairs,
-    tradesCount24Hr AS trades_count,
     updated
 FROM
   `dibimbing-de.Final_Project_Dibimbing.Coin_Market_Cap`
@@ -30,4 +29,4 @@ FROM
 SELECT 
 *
 FROM 
-markets
+fact_markets

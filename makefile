@@ -30,6 +30,13 @@ kafka:
 	@docker compose -f ./docker/docker-compose-kafka.yaml --env-file .env up -d
 	@echo '==========================================================='
 
+kafka-stop:
+	@echo '__________________________________________________________'
+	@echo 'Stopping Kafka Instance ...'
+	@echo '__________________________________________________________'
+	@docker compose -f ./docker/docker-compose-kafka.yaml --env-file .env stop
+	@echo '==========================================================='
+
 spark:
 	@echo '__________________________________________________________'
 	@echo 'Creating Spark Instance ...'
@@ -37,13 +44,13 @@ spark:
 	@docker compose -f ./docker/docker-compose-spark.yaml --env-file .env up -d
 	@echo '==========================================================='
 
-spark-produce:
+spark-produce-crypto:
 	@echo '__________________________________________________________'
-	@echo 'Producing streaming events ...'
+	@echo 'Producing streaming cryptocurrency events ...'
 	@echo '__________________________________________________________'
 	@docker exec ${SPARK_WORKER_CONTAINER_NAME}-1 \
-		python \
-		/spark-scripts/cryptocurrency.py.py
+		spark-submit \
+		/spark-scripts/cryptocurrency.py
 
 spark-consume-assets:
 	@echo '__________________________________________________________'
