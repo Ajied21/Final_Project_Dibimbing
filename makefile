@@ -18,8 +18,6 @@ docker-build:
 	@docker build -t Dibimbing/airflow -f ./docker/Dockerfile.airflow .
 	@echo '__________________________________________________________'
 	@docker build -t Dibimbing/spark -f ./docker/Dockerfile.spark .
-	@echo '__________________________________________________________'
-# @docker build -t Dibimbing/dbt -f ./docker/Dockerfile.dbt .
 	@echo '==========================================================='
 
 kafka:

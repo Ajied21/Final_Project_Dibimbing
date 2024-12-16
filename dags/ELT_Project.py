@@ -7,6 +7,9 @@ from airflow.utils.task_group import TaskGroup
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from airflow.operators.bash import BashOperator
 
+PROJECT_ID = "dibimbing-de"
+DATASET_ID = "Final_Project_Dibimbing"
+
 # Fungsi DAG utama
 @dag(
     description="Dhoifullah Luth Majied",
@@ -28,7 +31,7 @@ def ELT_Projects():
     # Task dan alur eksekusi DAG
     start_task = EmptyOperator(task_id="start_task")
 
-    with TaskGroup(group_id="Extract") as E:
+    with TaskGroup(group_id="Extract") as EXTRACT:
         extract_data = SparkSubmitOperator(
             application="/spark-scripts/ELT/extract_data.py",
             conn_id="spark_main",
@@ -37,7 +40,7 @@ def ELT_Projects():
         )
         extract_data
 
-    with TaskGroup(group_id="Load") as L:
+    with TaskGroup(group_id="Load") as LOAD:
         load_data = SparkSubmitOperator(
             application="/spark-scripts/ELT/load_data.py",
             conn_id="spark_main",
@@ -46,13 +49,13 @@ def ELT_Projects():
         )
         load_data
 
-    with TaskGroup(group_id="Transform") as T:
+    with TaskGroup(group_id="Transform") as TRANSFORM:
         assets = BashOperator(
         task_id="Transform_assets",
         bash_command="source $PATH_TO_DBT_VENV/bin/activate && dbt run --models assets",
         env={"PATH_TO_DBT_VENV": "/opt/airflow/dbt_venv",
-             "BIGQUERY_PROJECT":"dibimbing-de",
-             "BIGQUERY_DATASET":"Final_Project_Dibimbing",
+             "BIGQUERY_PROJECT": PROJECT_ID,
+             "BIGQUERY_DATASET": DATASET_ID,
              },
         cwd="/opt/airflow/dags/dbt",
         )
@@ -61,8 +64,8 @@ def ELT_Projects():
         task_id="Transform_rates",
         bash_command="source $PATH_TO_DBT_VENV/bin/activate && dbt run --models rates",
         env={"PATH_TO_DBT_VENV": "/opt/airflow/dbt_venv",
-             "BIGQUERY_PROJECT":"dibimbing-de",
-             "BIGQUERY_DATASET":"Final_Project_Dibimbing",
+             "BIGQUERY_PROJECT": PROJECT_ID,
+             "BIGQUERY_DATASET": DATASET_ID,
              },
         cwd="/opt/airflow/dags/dbt",
         )
@@ -71,8 +74,8 @@ def ELT_Projects():
         task_id="Transform_exchanges",
         bash_command="source $PATH_TO_DBT_VENV/bin/activate && dbt run --models exchanges",
         env={"PATH_TO_DBT_VENV": "/opt/airflow/dbt_venv",
-             "BIGQUERY_PROJECT":"dibimbing-de",
-             "BIGQUERY_DATASET":"Final_Project_Dibimbing",
+             "BIGQUERY_PROJECT": PROJECT_ID,
+             "BIGQUERY_DATASET": DATASET_ID,
              },
         cwd="/opt/airflow/dags/dbt",
         )
@@ -81,19 +84,18 @@ def ELT_Projects():
         task_id="Transform_markets",
         bash_command="source $PATH_TO_DBT_VENV/bin/activate && dbt run --models markets",
         env={"PATH_TO_DBT_VENV": "/opt/airflow/dbt_venv",
-             "BIGQUERY_PROJECT":"dibimbing-de",
-             "BIGQUERY_DATASET":"Final_Project_Dibimbing",
+             "BIGQUERY_PROJECT": PROJECT_ID,
+             "BIGQUERY_DATASET": DATASET_ID,
              },
         cwd="/opt/airflow/dags/dbt",
         )
-        assets
-        rates
-        exchanges
-        markets
+        assets >> markets
+        rates >> markets
+        exchanges >>  markets
 
     end_task = EmptyOperator(task_id="end_task")
 
     # Definisikan alur eksekusi
-    start_task >> E >> L >> T >> end_task
+    start_task >> EXTRACT >> LOAD >> TRANSFORM >> end_task
 
 ELT_Projects()

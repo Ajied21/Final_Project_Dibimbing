@@ -20,5 +20,5 @@ variable "location" {
 
 variable "dataset_name" {
   type    = string
-  default = "final_project"
+  default = "Final_Project_Dibimbing"
 }

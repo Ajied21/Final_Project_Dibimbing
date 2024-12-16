@@ -13,7 +13,7 @@ provider "google" {
   region      = var.region
 }
 
-resource "google_bigquery_dataset" "final_project" {
+resource "google_bigquery_dataset" "Final_Project_Dibimbing" {
   dataset_id = var.dataset_name
   location   = var.location
 }
