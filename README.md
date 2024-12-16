@@ -17,6 +17,8 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `Exchanges`   : Information about cryptocurrency trading platforms.
 - `Markets`     : Details of the markets where cryptocurrencies are traded.
 
+![Architecture Overview](./images/schema.png)
+
 # A Project Includes The Following Files:
 
 - docker compose file used to configure the schedule project such as using airflow and Postgresql as database in locally.
