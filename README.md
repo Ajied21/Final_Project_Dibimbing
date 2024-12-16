@@ -5,7 +5,7 @@ Welcome to my last project on the bootcamp platform organized by Dibimbing
 ## About The Project
 
 <div style="text-align: center;">
-  <img src="https://cdn.prod.website-files.com/5e9a09610b7dce71f87f7f17/5e9fe29ddf8913d2279dc5e1_1_DlrsI1Zf39aAVQkJin3YgQ.png" width="1000">
+  <img src="https://cdn.prod.website-files.com/5e9a09610b7dce71f87f7f17/5e9fe29ddf8913d2279dc5e1_1_DlrsI1Zf39aAVQkJin3YgQ.png" width="750">
 </div>
 
 The project is about Cryptocurrency has become one of the fastest growing financial sectors, with thousands of digital assets traded on exchanges around the world. Information such as price, volume, and market activity is often scattered and not standardized, making it difficult to conduct comprehensive analysis. The project aims to develop a CoinCap API-based solution capable of providing real-time data on the price and market activity of over 1,000 cryptocurrencies.
@@ -18,7 +18,7 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `Markets`     : Details of the markets where cryptocurrencies are traded.
 
 <div style="text-align: center;">
-  <img src="./images/schema.png" width="1000">
+  <img src="./images/schema.png" width="750">
 </div>
 
 # A Project Includes The Following Files:
