@@ -18,7 +18,7 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `Markets`     : Details of the markets where cryptocurrencies are traded.
 
 <div style="text-align: center;">
-  <img src="./images/schema.png" width="1500">
+  <img src="./images/schema.png" width="500">
 </div>
 
 # A Project Includes The Following Files:
