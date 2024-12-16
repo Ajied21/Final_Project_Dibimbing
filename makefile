@@ -7,7 +7,6 @@ help:
 	@echo "## airflow				- Build to orchestrator"
 	@echo "## postgres				- Run database of relationship"
 	@echo "## grafana				- Monitoring real-time data"
-	@echo "## dbt					- Run modeling and transform data"
 	@echo "## clean					- Cleanup all running containers related to the challenge."
 
 docker-build:
@@ -116,13 +115,6 @@ grafana:
 	@echo 'Creating Grafana Instance ...'
 	@echo '__________________________________________________________'
 	@docker compose -f ./docker/docker-compose-grafana.yaml up -d
-	@echo '==========================================================='
-
-dbt:
-	@echo '__________________________________________________________'
-	@echo 'Creating dbt Instance ...'
-	@echo '__________________________________________________________'
-	@docker compose -f ./docker/docker-compose-dbt.yaml up -d
 	@echo '==========================================================='
 
 clean:
