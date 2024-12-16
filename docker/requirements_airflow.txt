@@ -1,6 +1,7 @@
 lxml
 pyspark==3.3.2
 apache-airflow-providers-apache-spark
+apache-airflow-providers-google
 requests==2.31
 pandas==1.3.5
 polars==0.18.0

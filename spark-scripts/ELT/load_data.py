@@ -4,7 +4,7 @@ from google.cloud import bigquery
 import os
 
 # Konfigurasi Google Cloud
-service_account_key = "/scripts/credentials/key.json"
+service_account_key = "/spark-scripts/ELT/credentials/keys.json"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_key
 
 project_id = "dibimbing-de"
@@ -72,6 +72,7 @@ def load():
                 m."quoteId",
                 m."priceQuote",
                 m."percentExchangeVolume",
+                m."tradesCount24Hr",
                 TO_CHAR(m.updated, 'YYYY-MM-DD HH24:MI:SS') AS updated
                 FROM
                     public.markets m
@@ -96,11 +97,12 @@ def load():
 
     data.show(5)
 
-    # Konversi Spark DataFrame ke Pandas DataFrame
-    pandas_df = data.toPandas()
+    # Konversi Spark DataFrame ke Arrow DataFrame 
+    # karena Polars tidak memiliki dukungan bawaan untuk langsung membaca data dari PySpark DataFrame
+    arrow_df = data._sc._jvm.org.apache.spark.sql.execution.arrow.ArrowUtils.toArrowTable(data._jdf)
 
-    # Konversi Pandas DataFrame ke Polars DataFrame
-    df = pl.from_pandas(pandas_df)
+    # Konversi Arrow DataFrame ke Polars DataFrame
+    df = pl.from_arrow(arrow_df)
 
     # Simpan Polars DataFrame sebagai file Parquet
     parquet_file = "Coins_Markets_Caps.parquet"
