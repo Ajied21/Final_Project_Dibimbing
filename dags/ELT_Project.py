@@ -7,8 +7,8 @@ from airflow.utils.task_group import TaskGroup
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from airflow.operators.bash import BashOperator
 
-PROJECT_ID = "dibimbing-de"
-DATASET_ID = "Final_Project_Dibimbing"
+PROJECT_ID = "Your Project Id"
+DATASET_ID = "Your Dataset Id"
 
 # Fungsi DAG utama
 @dag(

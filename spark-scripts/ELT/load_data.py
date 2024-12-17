@@ -4,12 +4,12 @@ from google.cloud import bigquery
 import os
 
 # Konfigurasi Google Cloud
-service_account_key = "/spark-scripts/ELT/credentials/keys.json"
+service_account_key = "/spark-scripts/ELT/credentials/Your_Service_Account.json"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_key
 
-project_id = "dibimbing-de"
-dataset_id = "Final_Project_Dibimbing"
-table_name = "Coin_Market_Cap"
+project_id = "Your Project Id"
+dataset_id = "Your Dataset Id"
+table_name = "Your Table Name"
 
 table_id = f"{project_id}.{dataset_id}.{table_name}"
 
