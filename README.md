@@ -1,6 +1,6 @@
 # Hybrid Data Pipeline for Stream and Batch Processing of Cryptocurrency Market Data
 
-Welcome to my last project on the bootcamp platform organized by Dibimbing
+**Welcome to my last project on the bootcamp organized by Dibimbing**
 
 ## About The Project
 
@@ -126,6 +126,7 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `make spark-consume-exchanges`
 - `make spark-consume-markets`
 4. **Run for create a dataset on BigQuery** :
+- Create a folder and name it credentials, then download the service account file on GCP and put it in the credentials folder then use it as the variable "credentials" for the variables.tf file in the terraform folder.
 - `cd terraform`
 - `terraform init`
 - `terraform apply`
@@ -134,6 +135,8 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `make postgres`
 - `make spark`
 - `make airflow`
+- Create a folder and name it credentials in the dbt folder, then download the service account file on GCP and put it in the credentials folder then rename it to keys.json
+- run DAGs in Airflow
 
 
 | Command        | Description                                                                              |
