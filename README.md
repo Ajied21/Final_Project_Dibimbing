@@ -120,7 +120,7 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `make kafka`
 - `make postgres`
 - `make spark`
-- `make spark-produce-crypto`
+- `make spark-produce-crypto` 
 - `make spark-consume-assets`
 - `make spark-consume-rates`
 - `make spark-consume-exchanges`
@@ -138,8 +138,8 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - Create a folder and name it credentials in the dbt folder, then download the service account file on GCP and put it in the credentials folder then rename it to keys.json
 - run DAGs in Airflow
 6. **Run for visualization dashboard**
-- `make grafana`
-- Open this url : https://lookerstudio.google.com/
+- `make grafana` (username: admin & password: admin)
+- Open this url : https://lookerstudio.google.com/ and connect to data sources BigQuery then create a report for analyst
 
 
 | Command        | Description                                                                              |
