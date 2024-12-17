@@ -116,16 +116,17 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `make spark`
 - `make airflow`
 
----
-```
-## docker-build		              - Build Docker Images (amd64) including its inter-container network."
-## spark				                - Run a Spark cluster, rebuild the postgres container, then create the destination tables "
-## kafka				                - Spinup kafka cluster"
-## airflow				              - Build to orchestrator"
-## postgres				              - Run database of relationship"
-## terraform                    - Automate several services that are needed, such as: BigQuery"
-## grafana				              - Monitoring real-time data"
-```
+
+| Command        | Description                                                                              |
+|----------------|------------------------------------------------------------------------------------------|
+| `docker-build` | Build Docker Images (amd64) including its inter-container network.                       |
+| `spark`        | Run a Spark cluster, rebuild the postgres container, then create the destination tables. |
+| `kafka`        | Spin up a Kafka cluster.                                                                 |
+| `airflow`      | Build the orchestrator.                                                                  |
+| `postgres`     | Run the database of relationships.                                                       |
+| `terraform`    | Automate several services that are needed, such as BigQuery.                             |
+| `grafana`      | Monitor real-time data.                                                                  |
+
 
 # Documentation
 
