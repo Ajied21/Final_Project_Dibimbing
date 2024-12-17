@@ -149,31 +149,31 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 
 # Documentation
 
-- Topics on Confluent
+- **Topics on Confluent**
 <div style="text-align: center;">
     <img src="./images/kafka_confluent.png" alt="Architecture Overview" width="700"/>
 </div>
 
-- Spark for stream and batch processing
+- **Spark for stream and batch processing**
 <div style="text-align: center;">
     <img src="./images/spark.png" alt="Architecture Overview" width="700"/>
 </div>
 
-- DAGs on Airflow
+- **DAGs on Airflow**
 <div style="text-align: center;">
     <img src="./images/airflow_dags.png" alt="Architecture Overview" width="700"/>
 </div>
 
-- Data Warehouse on BigQuery
+- **Data Warehouse on BigQuery**
 <div style="text-align: center;">
     <img src="./images/bigquery.png" alt="Architecture Overview" width="700"/>
 
-- Dashboard on Grafana
+- **Dashboard on Grafana**
 <div style="text-align: center;">
     <img src="./images/grafana.png" alt="Architecture Overview" width="700"/>
 </div>
 
-- Dashboard on Looker Studio Data and url to Dashboard
+- **Dashboard on Looker Studio Data and url to Dashboard**
 <div style="text-align: center;">
     <img src="./images/looker_studio_data.png" alt="Architecture Overview" width="700"/>
 </div>
