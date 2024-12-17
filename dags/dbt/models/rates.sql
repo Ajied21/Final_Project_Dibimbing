@@ -5,7 +5,7 @@
 }}
 
 WITH rates AS (
-SELECT 
+SELECT DISTINCT
     rates_id AS id,
     rates_symbol AS symbol,
     rates_currency_Symbol AS currency_Symbol,

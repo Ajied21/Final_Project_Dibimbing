@@ -5,7 +5,7 @@
 }}
 
 WITH exchanges AS (
-SELECT 
+SELECT DISTINCT
     exchange_id,
     exchange_name AS name,
     exchange_rank AS rank,

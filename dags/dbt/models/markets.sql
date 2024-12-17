@@ -5,7 +5,7 @@
 }}
 
 WITH fact_markets AS (
-SELECT 
+SELECT DISTINCT
     exchange_id,
     asset_id AS base_id,
     quoteId AS quote_id,

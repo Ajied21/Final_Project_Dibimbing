@@ -5,7 +5,7 @@
 }}
 
 WITH assets AS (
-SELECT 
+SELECT DISTINCT
     asset_id AS id,
     asset_name AS name,
     asset_rank AS rank,
