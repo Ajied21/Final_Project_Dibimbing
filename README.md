@@ -131,31 +131,31 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 
 - Topics on Confluent
 <div style="text-align: center;">
-    <img src="./images/kafka_confluent.png" alt="Architecture Overview" width="500"/>
+    <img src="./images/kafka_confluent.png" alt="Architecture Overview" width="700"/>
 </div>
 
 - Spark for stream and batch processing
 <div style="text-align: center;">
-    <img src="./images/spark.png" alt="Architecture Overview" width="500"/>
+    <img src="./images/spark.png" alt="Architecture Overview" width="700"/>
 </div>
 
 - DAGs on Airflow
 <div style="text-align: center;">
-    <img src="./images/airflow_dags.png" alt="Architecture Overview" width="500"/>
+    <img src="./images/airflow_dags.png" alt="Architecture Overview" width="700"/>
 </div>
 
 - Data Warehouse on BigQuery
 <div style="text-align: center;">
-    <img src="./images/bigquery.png" alt="Architecture Overview" width="500"/>
+    <img src="./images/bigquery.png" alt="Architecture Overview" width="700"/>
 
 - Dashboard on Grafana
 <div style="text-align: center;">
-    <img src="./images/grafana.png" alt="Architecture Overview" width="500"/>
+    <img src="./images/grafana.png" alt="Architecture Overview" width="700"/>
 </div>
 
 - Dashboard on Looker Studio Data and url to Dashboard
 <div style="text-align: center;">
-    <img src="./images/looker_studio_data.png" alt="Architecture Overview" width="500"/>
+    <img src="./images/looker_studio_data.png" alt="Architecture Overview" width="700"/>
 </div>
 
 ---
