@@ -109,7 +109,9 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 
 # Workflow
 
-![Architecture Overview](./images/arsitektur.png)
+<div style="text-align: center;">
+  <img src="./images/arsitektur.png" width="700">
+</div>
 
 # Run Project
 
