@@ -125,6 +125,7 @@ The dataset used is from the CoinCap API 2.0 Platform which provides real-time d
 - `make spark-consume-rates`
 - `make spark-consume-exchanges`
 - `make spark-consume-markets`
+* If the streaming process is complete, please run `make kafka-stop`
 4. **Run for create a dataset on BigQuery** :
 - Create a folder and name it credentials, then download the service account file on GCP and put it in the credentials folder then use it as the variable "credentials" for the variables.tf file in the terraform folder.
 - `cd terraform`
