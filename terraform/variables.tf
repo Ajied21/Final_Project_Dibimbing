@@ -1,6 +1,6 @@
 variable "credentials" {
   type    = string
-  default = "C:/Users/G2 Academy/OneDrive/Desktop/Project/spark-scripts/ELT/credentials/keys.json"
+  default = "./path/to/your_credentials/Your_Service_Account.json"
 }
 
 variable "project" {
